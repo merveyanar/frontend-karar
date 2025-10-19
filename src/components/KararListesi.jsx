@@ -2,7 +2,7 @@ import React from 'react';
 import { silKarar } from '../services/kararService';
 import './KararListesi.css';
 
-const KararListesi = ({ kararlar, kararGetir }) => {
+const KararListesi = ({ kararlar, kararGetir ,kararSec}) => {
   const sil = async (id) => {
     if (window.confirm('Bu kararı silmek istediğinize emin misiniz?')) {
       try {
@@ -23,11 +23,12 @@ const KararListesi = ({ kararlar, kararGetir }) => {
     <div className="karar-listesi">
       <h2>Emsal Karar Listesi</h2>
       {kararlar.map((karar) => (
-        <div className="karar-item" key={karar.id}>
+        <div className="karar-item" key={karar.id}
+        onClick={()=>kararSec(karar)}style={{cursor:'pointer'}}>
           <div className="karar-detay">
             <span className="karar-no">{karar.kararNo}</span> - {karar.daireAdi}
           </div>
-          <button className="sil-btn" onClick={() => sil(karar.id)}>
+          <button className="sil-btn" onClick={(e) =>{e.stopPropagation(); sil(karar.id)}}>
             Sil
           </button>
         </div>
